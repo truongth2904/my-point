@@ -1,21 +1,28 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, {useEffect} from 'react';
+import {Alert, BackHandler, LogBox} from 'react-native';
+import SplashScreen from 'react-native-splash-screen';
+import Root from './src';
+import {nameTokens} from './src/constants/screenNames';
 
-export default function App() {
+const App = () => {
+  LogBox.ignoreLogs([
+    'ViewPropTypes will be removed',
+    'ColorPropType will be removed',
+  ]);
+
+  useEffect(() => {
+    AsyncStorage.getItem(nameTokens.NAME_TOKEN).then(res =>
+      SplashScreen.hide(),
+    );
+    // SplashScreen.hide();
+  }, []);
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <>
+      {/* <StatusBar hidden={true} /> */}
+      <Root />
+    </>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
