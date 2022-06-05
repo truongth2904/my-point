@@ -1,37 +1,23 @@
-import {StyleSheet} from 'react-native';
-import {scale, scaleHeight} from '../../utils';
-import {FONT_FAMILY, FONT_SIZE} from './../../constants/fonts';
-import colors from '../../constants/colors';
+import {StyleSheet, Text, View} from 'react-native';
 
 const styles = StyleSheet.create({
-  viewHeader: {
-    marginHorizontal: scale(30),
-    marginTop: scale(35),
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-    marginBottom: scaleHeight(40),
-  },
-  aboutIconHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: scale(70),
-  },
-  imageHeader: {
-    width: scale(80),
-    height: scale(30),
-    resizeMode: 'contain',
+  titleScreen: {
+    color: 'black',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginTop: 10,
+    fontSize: 18,
   },
   view: {
     flex: 1,
-    backgroundColor: colors.white,
+    backgroundColor: 'white',
   },
-  viewItem: {
-    width: scale(40),
-  },
-  viewPlaceholder: {
-    width: scale(295),
-    height: scaleHeight(100),
+  textGPA: {
+    color: 'red',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginTop: 10,
+    fontSize: 18,
   },
 });
-
 export default styles;

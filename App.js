@@ -17,12 +17,8 @@ const App = () => {
     );
     // SplashScreen.hide();
   }, []);
-  return (
-    <>
-      {/* <StatusBar hidden={true} /> */}
-      <Root />
-    </>
-  );
+  
+  return <Root />;
 };
 
 export default App;
