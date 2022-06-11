@@ -3,23 +3,41 @@ import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
 import {screens} from '../constants/screenNames';
 import {NavigationServices} from '../utils';
+import {Animated, Easing} from 'react-native';
 
 import HomeContainer from '../screens/home/home.container';
 import DetailScreen from '../screens/detail/detail.container';
+import Splash from '../screens/Splash';
 
 const StackFlow = createStackNavigator();
 const MyStack = () => {
   return (
-    <StackFlow.Navigator initialRouteName="Splash">
+    <StackFlow.Navigator
+      initialRouteParams={{transition: 'fade'}}
+      screenOptions={{
+        gestureEnabled: false,
+      }}
+      initialRouteName="Splash">
+      <StackFlow.Screen
+        name={screens.SPLASH}
+        component={Splash}
+        options={{
+          headerShown: false,
+        }}
+      />
       <StackFlow.Screen
         name={screens.HOME_SCREEN}
         component={HomeContainer}
-        options={{headerShown: false}}
+        options={{
+          headerShown: false,
+        }}
       />
       <StackFlow.Screen
         name={screens.DETAIL_SCREEN}
         component={DetailScreen}
-        options={{headerShown: false}}
+        options={{
+          headerShown: false,
+        }}
       />
     </StackFlow.Navigator>
   );

@@ -3838,6 +3838,11 @@ query-string@^7.0.0:
     split-on-first "^1.0.0"
     strict-uri-encode "^2.0.0"
 
+radio-buttons-react-native@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/radio-buttons-react-native/-/radio-buttons-react-native-1.0.4.tgz#ee450f6e81d8f5c22882f338b0ce979f70ab8980"
+  integrity sha512-5AKM/p3a9mykQ1BCIbBnHrDwXZZ6iJuDEDFaiNb2Pa2Nx9EgUMgU5owcrU9g9eaK7didA5rJ3yAUKGnyfhBqcw==
+
 range-parser@~1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/range-parser/-/range-parser-1.2.1.tgz#3cf37023d199e1c24d1a55b84800c2f3e6468031"
@@ -3967,6 +3972,11 @@ react-native-select-dropdown@^1.13.0:
   resolved "https://registry.yarnpkg.com/react-native-select-dropdown/-/react-native-select-dropdown-1.13.0.tgz#599566f8b44d979a13528319f340beb6117bbff6"
   integrity sha512-UGXWbuEqsG6B6O+tle77yJH3+DXfmh4cpit0v8az824y0rZLUWuRzlfeLYlaeZ80mqIF6Xtvx/pBtIsG1OdaLg==
 
+react-native-simple-radio-button@^2.7.4:
+  version "2.7.4"
+  resolved "https://registry.yarnpkg.com/react-native-simple-radio-button/-/react-native-simple-radio-button-2.7.4.tgz#86e2dbe8af9e6bf60eee088f60466f7a975e7758"
+  integrity sha512-QOZNmJUn0ViBGU+at7wAG/uGzd5PfXi0kMHr9lfTCLXknW/f9f2fOVjxjdHvOCdf/zA/eMJBjGjtusSDzQf1+w==
+
 react-native-skeleton-placeholder@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/react-native-skeleton-placeholder/-/react-native-skeleton-placeholder-5.0.0.tgz#899fca447c2f0b81f98566e350e792157a3c9df9"
@@ -3981,6 +3991,11 @@ react-native-tab-view@^3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/react-native-tab-view/-/react-native-tab-view-3.1.1.tgz#1f8d7a835ab4f5b1b1407ec8dddc1053b53fa3c6"
   integrity sha512-M5pRN6utQfytKWoKlKVzg5NbkYu308qNoW1khGTtEOTs1k14p2dHJ/BWOJoJYHKbPVUyZldbG9MFT7gUl4YHnw==
+
+react-native-uuid@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-uuid/-/react-native-uuid-2.0.1.tgz#ed4e2dfb1683eddb66967eb5dca140dfe1abddb9"
+  integrity sha512-cptnoIbL53GTCrWlb/+jrDC6tvb7ypIyzbXNJcpR3Vab0mkeaaVd5qnB3f0whXYzS+SMoSQLcUUB0gEWqkPC0g==
 
 react-native-vector-icons@^9.1.0:
   version "9.1.0"

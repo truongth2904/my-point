@@ -1,128 +1,107 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, ToastAndroid, Alert} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import HomeView from './home.view';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {table} from '../../constants/asyncName';
-const list = [
-  {
-    name: 'Toán',
-    id: '1',
-    pointMouth: -1,
-    point1: [],
-    point2: [],
-    point3: -1,
-  },
-  {
-    name: 'Vật Lý',
-    id: '2',
-    pointMouth: -1,
-    point1: [],
-    point2: [],
-    point3: -1,
-  },
-  {
-    name: 'Hóa Học',
-    id: '3',
-    pointMouth: -1,
-    point1: [],
-    point2: [],
-    point3: -1,
-  },
-  {
-    name: 'Sinh Học',
-    id: '4',
-    pointMouth: -1,
-    point1: [],
-    point2: [],
-    point3: -1,
-  },
-  {
-    name: 'Tin Học',
-    id: '5',
-    pointMouth: -1,
-    point1: [],
-    point2: [],
-    point3: -1,
-  },
-  {
-    name: 'Ngữ Văn',
-    id: '6',
-    pointMouth: -1,
-    point1: [],
-    point2: [],
-    point3: -1,
-  },
-  {
-    name: 'Lịch Sử',
-    id: '7',
-    pointMouth: -1,
-    point1: [],
-    point2: [],
-    point3: -1,
-  },
-  {
-    name: 'Địa Lý',
-    id: '8',
-    pointMouth: -1,
-    point1: [],
-    point2: [],
-    point3: -1,
-  },
-  {
-    name: 'Ngoại Ngữ',
-    id: '9',
-    pointMouth: -1,
-    point1: [],
-    point2: [],
-    point3: -1,
-  },
-  {
-    name: 'GDCD',
-    id: '10',
-    pointMouth: -1,
-    point1: [],
-    point2: [],
-    point3: -1,
-  },
-  {
-    name: 'Công Nghệ',
-    id: '11',
-    pointMouth: -1,
-    point1: [],
-    point2: [],
-    point3: -1,
-  },
-];
-
-const HomeContainer = ({navigation}) => {
-  const [fullNameUser, setFullNameUser] = useState('');
+import {screens} from '../../constants/screenNames';
+import uuid from 'react-native-uuid';
+const HomeContainer = ({navigation, route}) => {
   const [listSubjects, setListSubjects] = useState([]);
-  const [gpa, setGPA] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const [valueTextAdd, setValueTextAdd] = useState('');
+  const [pointGPA, setPointGPA] = useState(0);
+
+  const getListSubjects = () => {
+    setIsLoading(true);
+    setPointGPA(0);
+    setTimeout(async () => {
+      setListSubjects([]);
+      const data = JSON.parse(await AsyncStorage.getItem(table.LIST_SUBJECTS));
+      setListSubjects(data);
+
+      if (data) {
+        let total = 0;
+        let divisor = 0;
+        data.map(subject => {
+          total += parseFloat(subject.pointAVG) || null;
+          if (!(subject.pointAVG == null)) {
+            divisor++;
+          }
+        });
+        setPointGPA((total / divisor).toFixed(2));
+      }
+
+      setIsLoading(false);
+    }, 1000);
+  };
+
+  const onChangeTextValue = text => {
+    setValueTextAdd(text);
+  };
+
+  const onPressAddContainer = async () => {
+    if (valueTextAdd) {
+      const data = JSON.parse(await AsyncStorage.getItem(table.LIST_SUBJECTS));
+      const ID = uuid.v4();
+      newSubject = {id: ID, name: valueTextAdd, pointAVG: null};
+      newPoint = {score1: null, score2: null, score3: null};
+
+      if (data) {
+        data.push(newSubject);
+        await AsyncStorage.setItem(table.LIST_SUBJECTS, JSON.stringify(data));
+      } else {
+        await AsyncStorage.setItem(
+          table.LIST_SUBJECTS,
+          JSON.stringify([newSubject]),
+        );
+      }
+      await AsyncStorage.setItem(ID, JSON.stringify(newPoint));
+      ToastAndroid.show('Đã thêm môn học thành công!', ToastAndroid.LONG);
+      getListSubjects();
+    } else {
+      ToastAndroid.show('Bạn chưa nhập thông tin!', ToastAndroid.LONG);
+    }
+  };
+
   const onPressItemSubject = item => {
-    console.log(item);
+    navigation.navigate(screens.DETAIL_SCREEN, {ID: item.id, name: item.name});
+  };
+
+  const deleteSubject = (subject, index) => {
+    Alert.alert('Thông báo!', `Bạn muốn xóa môn ${subject.name} ?`, [
+      {
+        text: 'Cancel',
+        onPress: () => console.log('Cancel Pressed'),
+      },
+      {
+        text: 'OK',
+        onPress: async () => {
+          const data = JSON.parse(
+            await AsyncStorage.getItem(table.LIST_SUBJECTS),
+          );
+
+          data.splice(index, 1);
+          await AsyncStorage.setItem(table.LIST_SUBJECTS, JSON.stringify(data));
+          getListSubjects();
+        },
+      },
+    ]);
   };
 
   useEffect(() => {
-    (async () => {
-      const data = await AsyncStorage.getItem(table.LIST_SUBJECTS);
-
-      if (data) {
-        setListSubjects(JSON.parse(data));
-      } else {
-        await AsyncStorage.setItem(table.LIST_SUBJECTS, JSON.stringify(list));
-        setListSubjects(list);
-      }
-      setIsLoading(false);
-    })();
-  }, []);
+    getListSubjects();
+  }, [navigation, route]);
 
   return (
     <HomeView
+      deleteSubject={deleteSubject}
+      pointGPA={pointGPA}
+      getListSubjects={getListSubjects}
       onPressItemSubject={onPressItemSubject}
-      gpa={gpa}
+      onChangeTextValue={onChangeTextValue}
+      onPressAddContainer={onPressAddContainer}
+      isLoading={isLoading}
       listSubjects={listSubjects}
-      fullNameUser={fullNameUser}
     />
   );
 };

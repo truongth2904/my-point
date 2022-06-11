@@ -2,20 +2,34 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {NavigationServices} from '../utils';
 import React, {Component} from 'react';
 import {View} from 'react-native';
+import {screens} from '../constants/screenNames';
+import AnimatedLottieView from 'lottie-react-native';
+import {splashScreen} from '../assets/images';
+import colors from '../constants/colors';
+import {StyleSheet} from 'react-native';
 
-class Splash extends Component {
-  async componentDidMount() {
-    const accessToken = await AsyncStorage.getItem('ACCESS_TOKEN');
-    if (accessToken) {
-      NavigationServices.replace('Home');
-    } else {
-      NavigationServices.replace('Login');
-    }
-  }
+const Splash = () => {
+  const onAnimationFinish = () => {
+    NavigationServices.replace(screens.HOME_SCREEN);
+  };
 
-  render() {
-    return <View></View>;
-  }
-}
+  return (
+    <View style={styles.view}>
+      <AnimatedLottieView
+        source={splashScreen}
+        autoPlay
+        loop={false}
+        speed={0.8}
+        onAnimationFinish={onAnimationFinish}
+      />
+    </View>
+  );
+};
 
 export default Splash;
+const styles = StyleSheet.create({
+  view: {
+    flex: 1,
+    backgroundColor: colors.green,
+  },
+});
